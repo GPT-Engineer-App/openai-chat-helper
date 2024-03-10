@@ -5,9 +5,17 @@ function Chatbot() {
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");
 
+  const simulateBotResponse = (userMessage) => {
+    const botResponse = `Bot: Echoing "${userMessage}"`;
+    return { text: botResponse, sender: "bot" };
+  };
+
   const handleSendMessage = () => {
     if (inputValue.trim()) {
-      setMessages([...messages, { text: inputValue, sender: "user" }]);
+      const userMessage = { text: inputValue, sender: "user" };
+      const botMessage = simulateBotResponse(inputValue);
+
+      setMessages([...messages, userMessage, botMessage]);
       setInputValue("");
     }
   };
