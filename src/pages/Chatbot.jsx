@@ -5,15 +5,32 @@ function Chatbot() {
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");
 
-  const simulateBotResponse = (userMessage) => {
-    const botResponse = `Bot: Echoing "${userMessage}"`;
+  const generateSmartResponse = (userMessage) => {
+    const responses = {
+      hello: "Hello there! How can I assist you today?",
+      hi: "Hi! What can I do for you?",
+      help: "Sure, I'm here to help. What do you need assistance with?",
+      question: "What's your question? I'll try my best to answer it.",
+      default: "I'm not quite sure how to respond to that, but I'm here to learn!",
+    };
+
+    const lowerCaseMessage = userMessage.toLowerCase();
+    let botResponse = responses.default;
+
+    Object.keys(responses).forEach((key) => {
+      if (lowerCaseMessage.includes(key)) {
+        botResponse = responses[key];
+      }
+    });
+
+    return { text: `Bot: ${botResponse}`, sender: "bot" };
     return { text: botResponse, sender: "bot" };
   };
 
   const handleSendMessage = () => {
     if (inputValue.trim()) {
-      const userMessage = { text: inputValue, sender: "user" };
-      const botMessage = simulateBotResponse(inputValue);
+      const userMessage = { text: `You: ${inputValue}`, sender: "user" };
+      const botMessage = generateSmartResponse(inputValue);
 
       setMessages([...messages, userMessage, botMessage]);
       setInputValue("");
