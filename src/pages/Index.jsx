@@ -13,7 +13,10 @@ const Index = () => {
               My Website
             </Heading>
             <Spacer />
-            <Button colorScheme="pink" leftIcon={<FaHeart />}>
+            <Button as="a" href="/chatbot" colorScheme="blue" marginRight="4">
+              Chatbot
+            </Button>
+            <Button colorScheme="pink" leftIcon={<FaHeart />} marginRight="4">
               Like
             </Button>
           </Flex>
